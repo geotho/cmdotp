@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/base32"
 	"fmt"
 	"os"
 	"strings"
@@ -40,6 +41,10 @@ func AddSecret(c *cli.Context) error {
 
 	args := c.Args()
 
+	if _, err := base32.StdEncoding.DecodeString(args[1]); err != nil {
+		return fmt.Errorf("Secret is not valid base32")
+	}
+
 	if err := passwordPrompt(c); err != nil {
 		return fmt.Errorf("Could not read password: %s", err)
 	}
@@ -52,6 +57,7 @@ func AddSecret(c *cli.Context) error {
 		}
 		return fmt.Errorf("Could not load secrets: %v", err)
 	}
+
 	secrets = append(secrets, Secret{
 		Name:   args[0],
 		Secret: args[1],
