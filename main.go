@@ -46,10 +46,10 @@ func AddSecret(c *cli.Context) error {
 
 	key := getPassword(c)
 	secrets, err := Load(key)
-	if err.Error() == "Ciphertext could not be decrypted." {
-		return fmt.Errorf("Could not load secrets: please check your password.")
-	}
 	if err != nil {
+		if err.Error() == "Ciphertext could not be decrypted." {
+			return fmt.Errorf("Could not load secrets: please check your password.")
+		}
 		return fmt.Errorf("Could not load secrets: %v", err)
 	}
 	secrets = append(secrets, Secret{
@@ -72,10 +72,10 @@ func PrintCodes(c *cli.Context) error {
 	key := getPassword(c)
 
 	secrets, err := Load(key)
-	if err.Error() == "Ciphertext could not be decrypted." {
-		return fmt.Errorf("Could not load secrets: please check your password.")
-	}
 	if err != nil {
+		if err.Error() == "Ciphertext could not be decrypted." {
+			return fmt.Errorf("Could not load secrets: please check your password.")
+		}
 		return fmt.Errorf("Could not load secrets: %v", err)
 	}
 
