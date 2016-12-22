@@ -17,7 +17,7 @@ another-secret		452889
 
 ## Install
 
-`go install github.com/geotho/cmdotp`
+`go get github.com/geotho/cmdotp`
 
 ## Usage
 
